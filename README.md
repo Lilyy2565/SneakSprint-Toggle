@@ -8,7 +8,9 @@ SneakSprint Toggle is a very simple mod to allow you to change your sneaking and
 
 
 ## Installation
-There is no release version yet however you may build the mod using gradle.
+When avaliable there will be a release on the releases page here and it will be avaliable on modrinth at:
+
+~~https://modrinth.com/mod/sneaksprint-toggle~~ (Under Review)
 
 ## Features
 - Toggle Sprint toggle (Numpad 7 by default)
