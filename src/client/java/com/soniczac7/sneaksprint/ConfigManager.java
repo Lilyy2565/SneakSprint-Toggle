@@ -20,7 +20,7 @@ public class ConfigManager {
         if (CONFIG_FILE.exists()) {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
                 config = GSON.fromJson(reader, SneakSprintToggleConfig.class);
-                System.out.println("Config loaded: " + config.toggleSprint + ", " + config.toggleSneak + ", " + config.textEnabled);
+                System.out.println("Config loaded: Sprint=" + config.toggleSprint + ", Sneak=" + config.toggleSneak);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -33,7 +33,7 @@ public class ConfigManager {
     public static void saveConfig() {
         try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
             GSON.toJson(config, writer);
-            System.out.println("Config saved: " + config.toggleSprint + ", " + config.toggleSneak + ", " + config.textEnabled);
+            System.out.println("Config saved: Sprint=" + config.toggleSprint + ", Sneak=" + config.toggleSneak);
         } catch (IOException e) {
             e.printStackTrace();
         }

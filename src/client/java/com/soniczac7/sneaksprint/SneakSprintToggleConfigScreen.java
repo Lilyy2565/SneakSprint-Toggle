@@ -48,19 +48,6 @@ public class SneakSprintToggleConfigScreen implements ModMenuApi {
                     .build()
             );
 
-            // Text Toggle
-            general.addEntry(
-                entryBuilder.startBooleanToggle(Text.literal("Enable HUD Display"),
-                        SneakSprintToggleClient.textEnabled)
-                    .setDefaultValue(true)
-                    .setTooltip(Text.literal("Shows the current sprint/sneak mode on screen"))
-                    .setSaveConsumer(newValue -> {
-                        SneakSprintToggleClient.textEnabled = newValue;
-                        ConfigManager.config.textEnabled = newValue;
-                    })
-                    .build()
-            );
-
             // Additional entries can be added here.
             builder.setSavingRunnable(() -> {
                 ConfigManager.saveConfig();
