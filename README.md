@@ -1,6 +1,6 @@
-# Sneak Sprint Toggle
+# SneakSprint Toggle
 ## What it does
-Sneak Sprint Toggle is a very simple mod to allow you to change your sneaking and sprinting settings on the fly using keybinds.
+SneakSprint Toggle is a very simple mod to allow you to change your sneaking and sprinting settings on the fly using keybinds.
 
 <img width="2560" height="1404" alt="image" src="https://github.com/user-attachments/assets/1bcae442-43fa-4023-8f6a-06cd0892fe2a" />
 
