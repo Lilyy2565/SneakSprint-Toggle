@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "sneaksprint-toggle",
+	"version": "${version}",
+	"name": "SneakSprint Toggle",
+	"description": "Keybinding to toggle sprinting and sneaking.",
+	"authors": [
+		"Soniczac7"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/sneaksprint-toggle/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"modmenu": [
+    		"com.soniczac7.sneaksprint.SneakSprintToggleConfigScreen"
+  		],
+		"client": [
+			"com.soniczac7.sneaksprint.SneakSprintToggleClient"
+		]
+	},
+	"mixins": [
+		"sneaksprint-toggle.mixins.json",
+		{
+			"config": "sneaksprint-toggle.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.12",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"cloth-config": "*",
+		"modmenu": "*"
+	}
+}

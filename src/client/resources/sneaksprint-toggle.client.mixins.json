@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "com.soniczac7.sneaksprint.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"ExampleClientMixin",
+		"GameOptionsAccessor"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
