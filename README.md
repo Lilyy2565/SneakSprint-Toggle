@@ -21,3 +21,4 @@ When avaliable there will be a release on the releases page here and it will be 
 
 ## Known Issues
 - When untoggling sprint through the mod it stays toggled until the user presses the sprint key
+  - Affected versions: (1.21.5)
