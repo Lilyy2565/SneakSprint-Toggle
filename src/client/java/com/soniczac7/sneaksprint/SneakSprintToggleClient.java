@@ -31,7 +31,8 @@ public class SneakSprintToggleClient implements ClientModInitializer {
         ToggleSprint = ConfigManager.config.toggleSprint;
 		ToggleSneak = ConfigManager.config.toggleSneak;
 
-        // Sync with Minecraft's native settings on startup
+        // Sync with Minecraft's native settings on startup - read current MC settings first
+        syncFromMinecraftSettings();
         syncSprintToggle();
         syncSneakToggle();
 
@@ -49,6 +50,9 @@ public class SneakSprintToggleClient implements ClientModInitializer {
 
         // Register a client tick event.
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            // Check for manual setting changes in Minecraft's controls
+            checkForManualSettingChanges();
+            
             // Check if the key was pressed
             while (toggleSprintKeyBinding.wasPressed()) {
                 ToggleSprint = !ToggleSprint;
@@ -73,6 +77,63 @@ public class SneakSprintToggleClient implements ClientModInitializer {
             }
         });
 	}
+
+    // Method to read current Minecraft settings on startup
+    private static void syncFromMinecraftSettings() {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.options != null) {
+            // Read current Minecraft settings and update our mod state
+            boolean mcSprintToggled = ((GameOptionsAccessor) client.options).getSprintToggled().getValue();
+            boolean mcSneakToggled = ((GameOptionsAccessor) client.options).getSneakToggled().getValue();
+            
+            // If Minecraft settings don't match our config, update our config to match Minecraft
+            if (ToggleSprint != mcSprintToggled) {
+                ToggleSprint = mcSprintToggled;
+                ConfigManager.config.toggleSprint = ToggleSprint;
+                ConfigManager.saveConfig();
+                System.out.println("SneakSprint: Synced sprint setting from Minecraft: " + ToggleSprint);
+            }
+            
+            if (ToggleSneak != mcSneakToggled) {
+                ToggleSneak = mcSneakToggled;
+                ConfigManager.config.toggleSneak = ToggleSneak;
+                ConfigManager.saveConfig();
+                System.out.println("SneakSprint: Synced sneak setting from Minecraft: " + ToggleSneak);
+            }
+        }
+    }
+
+    // Method to check for manual changes to Minecraft settings
+    private static void checkForManualSettingChanges() {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.options != null) {
+            boolean mcSprintToggled = ((GameOptionsAccessor) client.options).getSprintToggled().getValue();
+            boolean mcSneakToggled = ((GameOptionsAccessor) client.options).getSneakToggled().getValue();
+            
+            // If Minecraft settings changed without us knowing, update our mod state
+            if (ToggleSprint != mcSprintToggled) {
+                ToggleSprint = mcSprintToggled;
+                ConfigManager.config.toggleSprint = ToggleSprint;
+                ConfigManager.saveConfig();
+                // Show feedback message
+                MinecraftClient.getInstance().inGameHud.setOverlayMessage(
+                    Text.literal("Sprint Toggle: " + (ToggleSprint ? "Toggled" : "Manual") + " (synced from controls)"),
+                    true
+                );
+            }
+            
+            if (ToggleSneak != mcSneakToggled) {
+                ToggleSneak = mcSneakToggled;
+                ConfigManager.config.toggleSneak = ToggleSneak;
+                ConfigManager.saveConfig();
+                // Show feedback message
+                MinecraftClient.getInstance().inGameHud.setOverlayMessage(
+                    Text.literal("Sneak Toggle: " + (ToggleSneak ? "Toggled" : "Manual") + " (synced from controls)"),
+                    true
+                );
+            }
+        }
+    }
 
     // Method to sync sprint toggle with Minecraft's native setting
     private static void syncSprintToggle() {
