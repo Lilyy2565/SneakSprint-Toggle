@@ -88,19 +88,19 @@ public class SneakSprintToggleClient implements ClientModInitializer {
 
         toggleSprintKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "Toggle Sprint",     // Keybind name
-            GLFW.GLFW_KEY_KP_7,  // Default key: KP_1 (Numpad 1)
+            GLFW.GLFW_KEY_KP_7,  // Default key: KP_7 (Numpad 7)
             "SneakSprint Toggle" // Category
         ));
 
         toggleSneakKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "Toggle Sneak",      // Keybind name
-            GLFW.GLFW_KEY_KP_8,  // Default key: KP_1 (Numpad 1)
+            GLFW.GLFW_KEY_KP_8,  // Default key: KP_8 (Numpad 8)
             "SneakSprint Toggle" // Category
         ));
 
         toggleTextKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "Toggle SneakSprint HUD", // Keybind name
-            GLFW.GLFW_KEY_KP_9,       // Default key: KP_1 (Numpad 1)
+            GLFW.GLFW_KEY_KP_9,       // Default key: KP_9 (Numpad 9)
             "SneakSprint Toggle"      // Category
         ));
 
