@@ -3,9 +3,7 @@
 SneakSprint Toggle is a very simple mod to allow you to change your sneaking and sprinting settings on the fly using keybinds.
 
 ## Installation
-When avaliable there will be a release on the releases page here and it will be avaliable on modrinth at:
-
-~~https://modrinth.com/mod/sneaksprint-toggle~~ (Under Review)
+The mod is avaliable on modrinth at: https://modrinth.com/mod/sneaksprint-toggle
 
 ## Features
 - Toggle Sprint toggle (Numpad 7 by default)
