@@ -184,8 +184,8 @@ public class SneakSprintToggleClient implements ClientModInitializer {
         java.util.List<String> info = new java.util.ArrayList<>();
         info.add("");
         info.add("§6[SneakSprint Toggle]");
-        info.add("Sprint: " + (ToggleSprint ? "§aToggled" : "§cManual"));
         info.add("Sneak: " + (ToggleSneak ? "§aToggled" : "§cManual"));
+        info.add("Sprint: " + (ToggleSprint ? "§aToggled" : "§cManual"));
         return info;
     }
 }
