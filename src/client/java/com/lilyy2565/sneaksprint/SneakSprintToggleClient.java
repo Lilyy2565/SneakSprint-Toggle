@@ -1,4 +1,4 @@
-package com.soniczac7.sneaksprint;
+package com.lilyy2565.sneaksprint;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -8,7 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
-import com.soniczac7.sneaksprint.mixin.client.GameOptionsAccessor;
+import com.lilyy2565.sneaksprint.mixin.client.GameOptionsAccessor;
 import net.minecraft.util.Identifier;
 
 

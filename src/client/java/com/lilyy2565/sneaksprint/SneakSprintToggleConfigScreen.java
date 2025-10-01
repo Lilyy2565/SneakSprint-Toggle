@@ -1,4 +1,4 @@
-package com.soniczac7.sneaksprint;
+package com.lilyy2565.sneaksprint;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -7,7 +7,7 @@ import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import com.soniczac7.sneaksprint.mixin.client.GameOptionsAccessor;
+import com.lilyy2565.sneaksprint.mixin.client.GameOptionsAccessor;
 
 public class SneakSprintToggleConfigScreen implements ModMenuApi {
 

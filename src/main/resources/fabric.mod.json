@@ -5,22 +5,22 @@
 	"name": "SneakSprint Toggle",
 	"description": "Keybinding to toggle sprinting and sneaking.",
 	"authors": [
-		"Soniczac7"
+		"Lilyy2565"
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/sneaksprint-toggle",
-		"sources": "https://github.com/Soniczac7/SneakSprint-Toggle",
-		"issues": "https://github.com/Soniczac7/SneakSprint-Toggle/issues"
+		"sources": "https://github.com/Lilyy2565/SneakSprint-Toggle",
+		"issues": "https://github.com/Lilyy2565/SneakSprint-Toggle/issues"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/sneaksprint-toggle/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"modmenu": [
-    		"com.soniczac7.sneaksprint.SneakSprintToggleConfigScreen"
+    		"com.lilyy2565.sneaksprint.SneakSprintToggleConfigScreen"
   		],
 		"client": [
-			"com.soniczac7.sneaksprint.SneakSprintToggleClient"
+			"com.lilyy2565.sneaksprint.SneakSprintToggleClient"
 		]
 	},
 	"mixins": [

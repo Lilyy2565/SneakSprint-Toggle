@@ -1,4 +1,4 @@
-package com.soniczac7.sneaksprint.mixin.client;
+package com.lilyy2565.sneaksprint.mixin.client;
 
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
