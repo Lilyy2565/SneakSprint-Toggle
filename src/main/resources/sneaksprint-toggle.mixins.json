@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "com.soniczac7.sneaksprint.mixin",
+	"package": "com.lilyy2565.sneaksprint.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"ExampleMixin"

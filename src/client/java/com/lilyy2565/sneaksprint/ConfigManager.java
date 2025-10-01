@@ -1,4 +1,4 @@
-package com.soniczac7.sneaksprint;
+package com.lilyy2565.sneaksprint;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

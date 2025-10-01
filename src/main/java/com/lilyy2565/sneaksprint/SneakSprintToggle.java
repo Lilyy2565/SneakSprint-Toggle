@@ -1,4 +1,4 @@
-package com.soniczac7.sneaksprint;
+package com.lilyy2565.sneaksprint;
 
 import net.fabricmc.api.ModInitializer;
 
