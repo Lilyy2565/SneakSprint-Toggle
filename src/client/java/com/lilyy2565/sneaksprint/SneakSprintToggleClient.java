@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
@@ -38,14 +39,16 @@ public class SneakSprintToggleClient implements ClientModInitializer {
 
         toggleSprintKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "Toggle Sprint",     // Keybind name
+            InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_7,  // Default key: KP_7 (Numpad 7)
-            "SneakSprint Toggle" // Category
+            KeyBinding.Category.MOVEMENT // Category
         ));
 
         toggleSneakKeyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "Toggle Sneak",      // Keybind name
+            InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_KP_8,  // Default key: KP_8 (Numpad 8)
-            "SneakSprint Toggle" // Category
+            KeyBinding.Category.MOVEMENT // Category
         ));
 
         // Register a client tick event.
