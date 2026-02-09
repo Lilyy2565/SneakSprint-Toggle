@@ -185,7 +185,6 @@ public class SneakSprintToggleClient implements ClientModInitializer {
     // Static method to get debug info for F3 screen (called by mixin)
     public static java.util.List<String> getDebugInfo() {
         java.util.List<String> info = new java.util.ArrayList<>();
-        info.add("");
         info.add("§6[SneakSprint Toggle]");
         info.add("Sneak: " + (ToggleSneak ? "§aToggled" : "§cManual"));
         info.add("Sprint: " + (ToggleSprint ? "§aToggled" : "§cManual"));
