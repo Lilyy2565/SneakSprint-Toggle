@@ -4,7 +4,7 @@
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"GameOptionsAccessor",
-		"DebugHudMixin"
+		"DebugHudEntriesMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
