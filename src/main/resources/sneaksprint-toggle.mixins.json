@@ -2,9 +2,7 @@
 	"required": true,
 	"package": "com.lilyy2565.sneaksprint.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ExampleMixin"
-	],
+	"mixins": [],
 	"injectors": {
 		"defaultRequire": 1
 	}

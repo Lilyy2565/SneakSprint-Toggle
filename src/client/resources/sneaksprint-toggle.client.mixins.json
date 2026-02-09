@@ -3,7 +3,6 @@
 	"package": "com.lilyy2565.sneaksprint.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin",
 		"GameOptionsAccessor",
 		"DebugHudMixin"
 	],
