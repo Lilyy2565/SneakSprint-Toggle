@@ -24,7 +24,6 @@
 		]
 	},
 	"mixins": [
-		"sneaksprint-toggle.mixins.json",
 		{
 			"config": "sneaksprint-toggle.client.mixins.json",
 			"environment": "client"
@@ -32,7 +31,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.16.12",
-		"minecraft": ">=1.21.10",
+		"minecraft": "~${minecraft_version}",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
