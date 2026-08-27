@@ -14,7 +14,7 @@
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/sneaksprint-toggle/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"modmenu": [
     		"com.lilyy2565.sneaksprint.SneakSprintToggleConfigScreen"
