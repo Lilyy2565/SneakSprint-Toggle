@@ -1,4 +1,7 @@
 # SneakSprint Toggle
+> [!NOTE]
+> All releases below v1.1.4 have been removed for download on both GitHub releases and Modrinth to prevent confusion.
+> Mod compatability will remain the same as v1.1.4 supports from Minecraft version 1.20-1.21.8, future versions still support versions 1.21.8+.
 ## What it does
 SneakSprint Toggle is a very simple mod to allow you to change your sneaking and sprinting settings on the fly using keybinds.
 
