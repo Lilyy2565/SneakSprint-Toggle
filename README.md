@@ -10,7 +10,7 @@ Want to disable GUIs such as the inventory from cancelling your sneak as it did 
 ## Installation
 The mod is avaliable on modrinth at: https://modrinth.com/mod/sneaksprint-toggle
 
-# Dependencies
+## Dependencies
 - [fabric-api](https://modrinth.com/mod/fabric-api) (required)
 - [modmenu](https://modrinth.com/mod/modmenu) (optional, required for accessing configs)
 - [cloth-config](https://modrinth.com/mod/cloth-config) (optional, required for config screen)
