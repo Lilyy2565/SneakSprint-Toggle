@@ -7,7 +7,8 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import com.mojang.blaze3d.platform.InputConstants;
-import org.lwjgl.glfw.GLFW;
+//? if <26.3
+//import org.lwjgl.glfw.GLFW;
 
 import com.lilyy2565.sneaksprint.mixin.client.GameOptionsAccessor;
 
@@ -36,15 +37,27 @@ public class SneakSprintToggleClient implements ClientModInitializer {
 
         toggleSprintKeyBinding = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             "Toggle Sprint",     // Keybind name
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_KP_7,  // Default key: KP_7 (Numpad 7)
+            //? if >=26.3 {
+            InputConstants.Type.KEYBOARD,
+            //?} else
+            //InputConstants.Type.KEYSYM,
+            //? if >=26.3 {
+            InputConstants.KEY_NUMPAD7,  // Default key: Numpad 7
+            //?} else
+            //GLFW.GLFW_KEY_KP_7,  // Default key: Numpad 7
             KeyMapping.Category.MOVEMENT // Category
         ));
 
         toggleSneakKeyBinding = KeyMappingHelper.registerKeyMapping(new KeyMapping(
             "Toggle Sneak",      // Keybind name
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_KP_8,  // Default key: KP_8 (Numpad 8)
+            //? if >=26.3 {
+            InputConstants.Type.KEYBOARD,
+            //?} else
+            //InputConstants.Type.KEYSYM,
+            //? if >=26.3 {
+            InputConstants.KEY_NUMPAD8,  // Default key: KP_8 (Numpad 8)
+            //?} else
+            //GLFW.GLFW_KEY_KP_8,  // Default key: KP_8 (Numpad 8)
             KeyMapping.Category.MOVEMENT // Category
         ));
 
