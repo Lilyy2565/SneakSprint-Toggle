@@ -25,6 +25,10 @@ base {
     archivesName = rootProject.archives_base_name
 }
 
+tasks.named("jar") {
+    archiveFileName = "${rootProject.archives_base_name}-${project.version}+neoforge.jar"
+}
+
 def commonNode = evaluationDependsOn(":common:${stonecutter.current.version}")
 def commonGenerate = commonNode.tasks.named("stonecutterGenerate")
 
