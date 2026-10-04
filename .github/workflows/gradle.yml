@@ -36,11 +36,17 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
-    - name: Upload Artifacts
+    - name: Upload Fabric Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: Sneak Sprint Toggle Build
-        path: "versions/**/build/libs/*.jar"
+        name: SneakSprint Toggle Fabric Build
+        path: "fabric/versions/**/build/libs/*.jar"
+
+    - name: Upload NeoForge Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: SneakSprint Toggle NeoForge Build
+        path: "neoforge/versions/**/build/libs/*.jar"
 
   dependency-submission:
 
