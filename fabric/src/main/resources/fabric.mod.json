@@ -12,12 +12,12 @@
 		"sources": "https://github.com/Lilyy2565/SneakSprint-Toggle",
 		"issues": "https://github.com/Lilyy2565/SneakSprint-Toggle/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/sneaksprint-toggle/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"modmenu": [
-    		"com.lilyy2565.sneaksprint.SneakSprintToggleConfigScreen"
+    		"com.lilyy2565.sneaksprint.ModMenu"
   		],
 		"client": [
 			"com.lilyy2565.sneaksprint.SneakSprintToggleClient"

@@ -1,0 +1,84 @@
+plugins {
+    id "dev.architectury.loom-no-remap" version "1.17-SNAPSHOT"
+    id "maven-publish"
+}
+
+repositories {
+    maven {
+        name = "NeoForge"
+        url = "https://maven.neoforged.net/releases/"
+    }
+    maven {
+        name = "Shedaniel"
+        url = "https://maven.shedaniel.me/"
+    }
+}
+
+def node = rootProject.project(":${stonecutter.current.version}")
+def mcVersion = node.property("minecraft_version")
+def neoForgeVersion = node.property("neoforge_version")
+
+version = "${rootProject.mod_version}+${mcVersion}"
+group = rootProject.maven_group
+
+base {
+    archivesName = rootProject.archives_base_name
+}
+
+def commonNode = evaluationDependsOn(":common:${stonecutter.current.version}")
+def commonGenerate = commonNode.tasks.named("stonecutterGenerate")
+
+loom {
+    neoForge {}
+}
+
+sourceSets {
+    main {
+        java.srcDirs(
+            "${rootProject.projectDir}/common/versions/${stonecutter.current.version}/build/generated/stonecutter/main/java"
+        )
+        resources.srcDirs(
+            "${rootProject.projectDir}/common/versions/${stonecutter.current.version}/build/generated/stonecutter/main/resources"
+        )
+    }
+}
+
+tasks.named("compileJava") {
+    dependsOn commonGenerate
+}
+
+tasks.named("processResources") {
+    dependsOn commonGenerate
+
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand(
+            version: project.version,
+            minecraft_version: mcVersion,
+            neoforge_version: neoForgeVersion
+        )
+    }
+}
+
+tasks.matching { it.name == "sourcesJar" }.configureEach {
+    dependsOn commonGenerate
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${mcVersion}"
+    neoForge "net.neoforged:neoforge:${neoForgeVersion}"
+
+    implementation "dev.architectury:architectury-neoforge:${node.property("architectury_api_version")}"
+    implementation "me.shedaniel.cloth:cloth-config-neoforge:${node.property("cloth_config_version")}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+
+    withSourcesJar()
+}

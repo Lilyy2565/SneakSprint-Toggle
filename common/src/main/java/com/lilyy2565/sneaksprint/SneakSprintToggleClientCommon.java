@@ -1,8 +1,6 @@
 package com.lilyy2565.sneaksprint;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import dev.architectury.event.events.client.ClientTickEvent;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -13,29 +11,14 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.lilyy2565.sneaksprint.mixin.client.GameOptionsAccessor;
 
 
-public class SneakSprintToggleClient implements ClientModInitializer {
+public class SneakSprintToggleClientCommon {
 	
-    public static boolean ToggleSprint = false;
-	public static boolean ToggleSneak = false;
-
     // Keybindings
-    private KeyMapping toggleSprintKeyBinding;
-    private KeyMapping toggleSneakKeyBinding;
+    private static KeyMapping toggleSprintKeyBinding;
+    private static KeyMapping toggleSneakKeyBinding;
 
-
-	@Override
-	public void onInitializeClient() {
-		// Load the configuration.
-        ConfigManager.loadConfig();
-        ToggleSprint = ConfigManager.config.toggleSprint;
-		ToggleSneak = ConfigManager.config.toggleSneak;
-
-        // Sync with Minecraft's native settings on startup - read current MC settings first
-        syncFromMinecraftSettings();
-        syncSprintToggle();
-        syncSneakToggle();
-
-        toggleSprintKeyBinding = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+    public static void initKeyMappings() {
+        toggleSprintKeyBinding = new KeyMapping(
             "Toggle Sprint",     // Keybind name
             //? if >=26.3 {
             InputConstants.Type.KEYBOARD,
@@ -46,9 +29,9 @@ public class SneakSprintToggleClient implements ClientModInitializer {
             //?} else
             //GLFW.GLFW_KEY_KP_7,  // Default key: Numpad 7
             KeyMapping.Category.MOVEMENT // Category
-        ));
+        );
 
-        toggleSneakKeyBinding = KeyMappingHelper.registerKeyMapping(new KeyMapping(
+        toggleSneakKeyBinding = new KeyMapping(
             "Toggle Sneak",      // Keybind name
             //? if >=26.3 {
             InputConstants.Type.KEYBOARD,
@@ -59,38 +42,54 @@ public class SneakSprintToggleClient implements ClientModInitializer {
             //?} else
             //GLFW.GLFW_KEY_KP_8,  // Default key: KP_8 (Numpad 8)
             KeyMapping.Category.MOVEMENT // Category
-        ));
+        );
+    }
+
+    public static KeyMapping getToggleSprintKeyBinding() {
+        return toggleSprintKeyBinding;
+    }
+
+    public static KeyMapping getToggleSneakKeyBinding() {
+        return toggleSneakKeyBinding;
+    }
+
+	public static void init() {
+		// Load the configuration.
+        ConfigManager.loadConfig();
+
+        // Sync with Minecraft's native settings on startup - read current MC settings first
+        syncFromMinecraftSettings();
+        syncSprintToggle();
+        syncSneakToggle();
 
         // Register a client tick event.
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+        ClientTickEvent.CLIENT_POST.register(client -> {
             // Check for manual setting changes in Minecraft's controls
             checkForManualSettingChanges();
             
             // Check if the key was pressed
             while (toggleSprintKeyBinding.consumeClick()) {
-                ToggleSprint = !ToggleSprint;
+                ConfigManager.config.toggleSprint = !ConfigManager.config.toggleSprint;
                 syncSprintToggle();
-                ConfigManager.config.toggleSprint = ToggleSprint;
                 ConfigManager.saveConfig();
                 Minecraft.getInstance().gui
                     //? if >=26.2
                     .hud
                     .setOverlayMessage(
-                        Component.literal("Sprint Toggle: " + (ToggleSprint ? "Toggled" : "Manual")),
+                        Component.literal("Sprint Toggle: " + (ConfigManager.config.toggleSprint ? "Toggled" : "Manual")),
                         true // 'true' makes it display in the action bar
                     );
             }
 
             while (toggleSneakKeyBinding.consumeClick()) {
-                ToggleSneak = !ToggleSneak;
+                ConfigManager.config.toggleSneak = !ConfigManager.config.toggleSneak;
                 syncSneakToggle();
-                ConfigManager.config.toggleSneak = ToggleSneak;
                 ConfigManager.saveConfig();
                 Minecraft.getInstance().gui
                     //? if >=26.2
                     .hud
                     .setOverlayMessage(
-                        Component.literal("Sneak Toggle: " + (ToggleSneak ? "Toggled" : "Manual")),
+                        Component.literal("Sneak Toggle: " + (ConfigManager.config.toggleSneak ? "Toggled" : "Manual")),
                         true // 'true' makes it display in the action bar
                 );
             }
@@ -106,18 +105,16 @@ public class SneakSprintToggleClient implements ClientModInitializer {
             boolean mcSneakToggled = ((GameOptionsAccessor) client.options).getSneakToggled().get();
             
             // If Minecraft settings don't match our config, update our config to match Minecraft
-            if (ToggleSprint != mcSprintToggled) {
-                ToggleSprint = mcSprintToggled;
-                ConfigManager.config.toggleSprint = ToggleSprint;
+            if (ConfigManager.config.toggleSprint != mcSprintToggled) {
+                ConfigManager.config.toggleSprint = mcSprintToggled;
                 ConfigManager.saveConfig();
-                System.out.println("SneakSprint: Synced sprint setting from Minecraft: " + ToggleSprint);
+                System.out.println("SneakSprint: Synced sprint setting from Minecraft: " + ConfigManager.config.toggleSprint);
             }
             
-            if (ToggleSneak != mcSneakToggled) {
-                ToggleSneak = mcSneakToggled;
-                ConfigManager.config.toggleSneak = ToggleSneak;
+            if (ConfigManager.config.toggleSneak != mcSneakToggled) {
+                ConfigManager.config.toggleSneak = mcSneakToggled;
                 ConfigManager.saveConfig();
-                System.out.println("SneakSprint: Synced sneak setting from Minecraft: " + ToggleSneak);
+                System.out.println("SneakSprint: Synced sneak setting from Minecraft: " + ConfigManager.config.toggleSneak);
             }
         }
     }
@@ -130,30 +127,28 @@ public class SneakSprintToggleClient implements ClientModInitializer {
             boolean mcSneakToggled = ((GameOptionsAccessor) client.options).getSneakToggled().get();
             
             // If Minecraft settings changed without us knowing, update our mod state
-            if (ToggleSprint != mcSprintToggled) {
-                ToggleSprint = mcSprintToggled;
-                ConfigManager.config.toggleSprint = ToggleSprint;
+            if (ConfigManager.config.toggleSprint != mcSprintToggled) {
+                ConfigManager.config.toggleSprint = mcSprintToggled;
                 ConfigManager.saveConfig();
                 // Show feedback message
                 Minecraft.getInstance().gui
                     //? if >=26.2
                     .hud
                     .setOverlayMessage(
-                        Component.literal("Sprint Toggle: " + (ToggleSprint ? "Toggled" : "Manual") + " (synced from controls)"),
+                        Component.literal("Sprint Toggle: " + (ConfigManager.config.toggleSprint ? "Toggled" : "Manual") + " (synced from controls)"),
                         true // 'true' makes it display in the action bar
                     );
             }
             
-            if (ToggleSneak != mcSneakToggled) {
-                ToggleSneak = mcSneakToggled;
-                ConfigManager.config.toggleSneak = ToggleSneak;
+            if (ConfigManager.config.toggleSneak != mcSneakToggled) {
+                ConfigManager.config.toggleSneak = mcSneakToggled;
                 ConfigManager.saveConfig();
                 // Show feedback message
                 Minecraft.getInstance().gui
                     //? if >=26.2
                     .hud
                     .setOverlayMessage(
-                        Component.literal("Sneak Toggle: " + (ToggleSneak ? "Toggled" : "Manual") + " (synced from controls)"),
+                        Component.literal("Sneak Toggle: " + (ConfigManager.config.toggleSneak ? "Toggled" : "Manual") + " (synced from controls)"),
                         true // 'true' makes it display in the action bar
                     );
             }
@@ -165,11 +160,11 @@ public class SneakSprintToggleClient implements ClientModInitializer {
         Minecraft client = Minecraft.getInstance();
         if (client.options != null) {
             boolean wasToggled = ((GameOptionsAccessor) client.options).getSprintToggled().get();
-            ((GameOptionsAccessor) client.options).getSprintToggled().set(ToggleSprint);
+            ((GameOptionsAccessor) client.options).getSprintToggled().set(ConfigManager.config.toggleSprint);
             
             // If we're switching from toggled to manual and player was sprinting,
             // simulate a key press to properly reset the toggle state
-            if (wasToggled && !ToggleSprint && client.player != null && client.player.isSprinting()) {
+            if (wasToggled && !ConfigManager.config.toggleSprint && client.player != null && client.player.isSprinting()) {
                 // For sprinting, we need to both simulate key press AND ensure player stops sprinting
                 if (client.options.keySprint != null) {
                     // First set sprinting to false to ensure it stops
@@ -187,11 +182,11 @@ public class SneakSprintToggleClient implements ClientModInitializer {
         Minecraft client = Minecraft.getInstance();
         if (client.options != null) {
             boolean wasToggled = ((GameOptionsAccessor) client.options).getSneakToggled().get();
-            ((GameOptionsAccessor) client.options).getSneakToggled().set(ToggleSneak);
+            ((GameOptionsAccessor) client.options).getSneakToggled().set(ConfigManager.config.toggleSneak);
             
             // If we're switching from toggled to manual and player was sneaking,
             // simulate a key press to properly reset the toggle state
-            if (wasToggled && !ToggleSneak && client.player != null && client.player.isCrouching()) {
+            if (wasToggled && !ConfigManager.config.toggleSneak && client.player != null && client.player.isCrouching()) {
                 // For sneaking, we need to both simulate key press AND ensure player stops sneaking
                 if (client.options.keyShift != null) {
                     // First set sneaking to false to ensure it stops
@@ -201,14 +196,5 @@ public class SneakSprintToggleClient implements ClientModInitializer {
                 }
             }
         }
-    }
-
-    // Static method to get debug info for F3 screen (called by mixin)
-    public static java.util.List<String> getDebugInfo() {
-        java.util.List<String> info = new java.util.ArrayList<>();
-        info.add("§6[SneakSprint Toggle]");
-        info.add("Sneak: " + (ToggleSneak ? "§aToggled" : "§cManual"));
-        info.add("Sprint: " + (ToggleSprint ? "§aToggled" : "§cManual"));
-        return info;
     }
 }

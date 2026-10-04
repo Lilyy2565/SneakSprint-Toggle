@@ -1,0 +1,94 @@
+plugins {
+    id "dev.architectury.loom-no-remap" version "1.17-SNAPSHOT"
+    id "maven-publish"
+}
+
+def node = rootProject.project(":${stonecutter.current.version}")
+def mcVersion = node.property("minecraft_version")
+def loaderVersion = node.property("loader_version")
+def fabricApiVersion = node.property("fabric_api_version")
+
+version = "${rootProject.mod_version}+${mcVersion}"
+group = rootProject.maven_group
+
+base {
+    archivesName = rootProject.archives_base_name
+}
+
+def commonNode = evaluationDependsOn(":common:${stonecutter.current.version}")
+def commonGenerate = commonNode.tasks.named("stonecutterGenerate")
+
+loom {
+    mods {
+        "sneaksprint-toggle" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDir(
+            "${rootProject.projectDir}/common/versions/${stonecutter.current.version}/build/generated/stonecutter/main/java"
+        )
+        java.srcDir(
+            "${rootProject.projectDir}/fabric/src/client/java"
+        )
+
+        resources.srcDir(
+            "${rootProject.projectDir}/common/versions/${stonecutter.current.version}/build/generated/stonecutter/main/resources"
+        )
+    }
+}
+
+tasks.named("compileJava") {
+    dependsOn commonGenerate
+}
+
+tasks.named("processResources") {
+    dependsOn commonGenerate
+
+    filesMatching("fabric.mod.json") {
+        expand(
+            version: project.version,
+            minecraft_version: mcVersion
+        )
+    }
+}
+
+tasks.matching { it.name == "sourcesJar" }.configureEach {
+    dependsOn commonGenerate
+}
+
+repositories {
+    maven {
+        name = "Shedaniel"
+        url = "https://maven.shedaniel.me/"
+    }
+    maven {
+        name = "Terraformers"
+        url = "https://maven.terraformersmc.com/releases/"
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${mcVersion}"
+
+    implementation "net.fabricmc:fabric-loader:${loaderVersion}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabricApiVersion}"
+
+    implementation "me.shedaniel.cloth:cloth-config-fabric:${node.property("cloth_config_version")}"
+    implementation "com.terraformersmc:modmenu:${node.property("modmenu_version")}"
+    implementation "dev.architectury:architectury-fabric:${node.property("architectury_api_version")}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    withSourcesJar()
+}
