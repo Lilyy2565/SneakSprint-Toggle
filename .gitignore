@@ -1,22 +1,23 @@
-# gradle
+# Gradle
 
 .gradle/
 build/
+**/build/
 out/
 classes/
 
-# eclipse
+# Eclipse
 
 *.launch
 
-# idea
+# Idea
 
 .idea/
 *.iml
 *.ipr
 *.iws
 
-# vscode
+# Vscode
 
 .settings/
 .vscode/
@@ -24,21 +25,20 @@ bin/
 .classpath
 .project
 
-# macos
+# MacOS
 
 *.DS_Store
 
-# fabric
-
-run/
-
-# java
+# Java
 
 hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
 
-# stonecutter
+# Stonecutter
 
-versions/*/src
+versions/*/build
+common/versions/
+fabric/versions/
+neoforge/versions/

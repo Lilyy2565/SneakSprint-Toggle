@@ -1,0 +1,31 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+
+[[mods]]
+modId="sneaksprint_toggle"
+version="${version}"
+displayName="SneakSprint Toggle"
+description='''Keybinding to toggle sprinting and sneaking.'''
+logoFile="assets/sneaksprint-toggle/icon.png"
+authors="Lilyy2565"
+displayTest="IGNORE_ALL_VERSION"
+displayURL="https://modrinth.com/mod/sneaksprint-toggle"
+issueTrackerURL="https://github.com/Lilyy2565/SneakSprint-Toggle/issues"
+
+[[dependencies.sneaksprint_toggle]]
+modId="neoforge"
+type="required"
+versionRange="[${neoforge_version},)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.sneaksprint_toggle]]
+modId="minecraft"
+type="required"
+versionRange="[${minecraft_version},)"
+ordering="NONE"
+side="CLIENT"
+
+[[mixins]]
+config="sneaksprint-toggle.client.mixins.json"

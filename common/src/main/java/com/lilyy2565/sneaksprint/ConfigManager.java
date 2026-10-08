@@ -2,7 +2,7 @@ package com.lilyy2565.sneaksprint;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.fabricmc.loader.api.FabricLoader;
+import dev.architectury.platform.Platform;
 
 import java.io.File;
 import java.io.FileReader;
@@ -10,8 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ConfigManager {
-    // The config file should be stored in the Fabric config directory.
-    private static final File CONFIG_FILE = new File(FabricLoader.getInstance().getConfigDir().toFile(), "SneakSprintToggle.json");
+    // Get the per-platform confifg directory
+    private static final File CONFIG_FILE = Platform.getConfigFolder().resolve("SneakSprintToggle.json").toFile();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static SneakSprintToggleConfig config = new SneakSprintToggleConfig();
